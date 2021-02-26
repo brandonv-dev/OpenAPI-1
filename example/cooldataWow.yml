@@ -1,15 +1,10 @@
 openapi: 3.0.0
 info:
   version: v1
-  title: OnlineID.NormalizedAPI
-  description: >
-    To run tests transactions on our trial endpoint in postman:
-
-
-    [![Run in
-    Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/8110155/TVmFifAB)
+  title: Trulioo SDK
+  description: Trulioo SDK
 paths:
-  /business/v1/search:
+  /{mode}/business/v1/search:
     post:
       tags:
         - Business
@@ -91,13 +86,16 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /business/v1/search/transactionrecord/{id}:
+      parameters:
+        - $ref: '#/components/parameters/mode'
+  /{mode}/business/v1/search/transactionrecord/{id}:
     get:
       tags:
         - Business
       summary: returns the a business search result.
       operationId: GetBusinessSearchResult
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: id
           in: path
           description: transaction record id
@@ -171,7 +169,7 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /common/v1/ip-info:
+  /{mode}/common/v1/ip-info:
     get:
       tags:
         - Common
@@ -191,7 +189,9 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
-  /configuration/v1/countrysubdivisions/{countryCode}:
+      parameters:
+        - $ref: '#/components/parameters/mode'
+  /{mode}/configuration/v1/countrysubdivisions/{countryCode}:
     get:
       tags:
         - Configuration
@@ -200,6 +200,7 @@ paths:
         matches ISO 3166-2
       operationId: GetCountrySubdivisions
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: countryCode
           in: path
           description: Country alpha2 code, get the the call to countrycodes
@@ -265,7 +266,7 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /configuration/v1/businessregistrationnumbers/{countryCode}/{jurisdictionCode}:
+  /{mode}/configuration/v1/businessregistrationnumbers/{countryCode}/{jurisdictionCode}:
     get:
       tags:
         - Configuration
@@ -274,6 +275,7 @@ paths:
         and an optionally supplied jurisdiction
       operationId: GetBusinessRegistrationNumbers
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: countryCode
           in: path
           description: >-
@@ -367,13 +369,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /configuration/v1/documentTypes/{countryCode}:
+  /{mode}/configuration/v1/documentTypes/{countryCode}:
     get:
       tags:
         - Configuration
       summary: Gets the document types available for a country.
       operationId: GetDocumentTypes
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: countryCode
           in: path
           description: Call CountryCodes to get the countries available to you.
@@ -422,13 +425,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /connection/v1/sayhello/{name}:
+  /{mode}/connection/v1/sayhello/{name}:
     get:
       tags:
         - Connection
       summary: "This method enables you to check if your system can connect to our system. You can even use a web browser to verify a connection to our system.\r\nApplied a maximum length for the name parameter of 100 via a route constraint"
       operationId: SayHello
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: name
           in: path
           description: Name to be returned in the response
@@ -464,7 +468,7 @@ paths:
             request application/json in the Content-Type header.
         '500':
           description: An error happened on the server without a specific message.
-  /connection/v1/testauthentication:
+  /{mode}/connection/v1/testauthentication:
     get:
       tags:
         - Connection
@@ -503,7 +507,9 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /connection/v1/async-callback:
+      parameters:
+        - $ref: '#/components/parameters/mode'
+  /{mode}/connection/v1/async-callback:
     post:
       tags:
         - Connection
@@ -551,7 +557,9 @@ paths:
             request application/json in the Content-Type header.
         '500':
           description: An error happened on the server without a specific message.
-  /verifications/v1/verify:
+      parameters:
+        - $ref: '#/components/parameters/mode'
+  /{mode}/verifications/v1/verify:
     post:
       tags:
         - Verifications
@@ -692,13 +700,16 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /verifications/v1/transactionrecord/{id}:
+      parameters:
+        - $ref: '#/components/parameters/mode'
+  /{mode}/verifications/v1/transactionrecord/{id}:
     get:
       tags:
         - Verifications
       summary: "This method is used to retrieve the request and results of a verification performed using the verify method.\r\nThe response for this method includes the same information as verify method's response, along with data present in the input fields of the verify request."
       operationId: GetTransactionRecord
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: id
           in: path
           description: id of the transactionrecord, this will be a GUID
@@ -832,13 +843,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /verifications/v1/transactionrecord/{transactionRecordID}/{documentField}:
+  /{mode}/verifications/v1/transactionrecord/{transactionRecordID}/{documentField}:
     get:
       tags:
         - Verifications
       summary: "This method is used to retrieve the document of a verification performed using the verify method.\r\nThe response for this method includes the processed base64 JPEG formatted string"
       operationId: GetTransactionRecordDocument
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: transactionRecordID
           in: path
           description: id of the transactionrecord, this will be a GUID
@@ -883,13 +895,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /verifications/v1/transactionrecord/{id}/withaddress:
+  /{mode}/verifications/v1/transactionrecord/{id}/withaddress:
     get:
       tags:
         - Verifications
       summary: "Fetch the results of a verification with the TransactionRecordId for the transaction this will include additional information if your account\r\nincludes address cleansing."
       operationId: GetTransactionRecordAddress
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: id
           in: path
           description: id of the transactionrecord, this will be a GUID
@@ -1033,13 +1046,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /verifications/v1/transactionrecord/{id}/verbose:
+  /{mode}/verifications/v1/transactionrecord/{id}/verbose:
     get:
       tags:
         - Verifications
       summary: "Fetch the results of a verification with the TransactionRecordId for the transaction this will include additional information if your account\r\nincludes address cleansing and watchlist details."
       operationId: GetTransactionRecordVerbose
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: id
           in: path
           description: id of the transactionrecord, this will be a GUID
@@ -1183,7 +1197,7 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /verifications/v1/transaction/{id}/status:
+  /{mode}/verifications/v1/transaction/{id}/status:
     get:
       tags:
         - Verifications
@@ -1194,6 +1208,7 @@ paths:
         as whether the verification request has timed out.
       operationId: GetTransactionStatus
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: id
           in: path
           description: id of the asynchronous transaction, this will be a GUID
@@ -1236,13 +1251,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /verifications/v1/documentdownload/{transactionRecordId}/{fieldName}:
+  /{mode}/verifications/v1/documentdownload/{transactionRecordId}/{fieldName}:
     get:
       tags:
         - Verifications
       summary: Download Document
       operationId: DocumentDownload
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: transactionRecordId
           in: path
           description: id of the transactionrecord, this will be a GUID
@@ -1283,7 +1299,7 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /worldcheck/v1/profile/{originalTransactionID}/{referenceID}:
+  /{mode}/worldcheck/v1/profile/{originalTransactionID}/{referenceID}:
     get:
       tags:
         - WorldCheck
@@ -1292,6 +1308,7 @@ paths:
         transaction ID and reference ID.
       operationId: GetWorldCheckProfile
       parameters:
+        - $ref: '#/components/parameters/mode'
         - name: originalTransactionID
           in: path
           required: true
@@ -1330,13 +1347,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /configuration/v1/consents/{configurationName}/{countryCode}:
+  /{mode}/configuration/v1/consents/{configurationName}/{countryCode}:
     get:
       tags:
         - Configuration
       summary: "This method retrieves the consents required for data sources currently configured in your account configuration. \r\nThe response for this method contains a collection of strings that Verify method's ConsentForDataSources field expects to perform a verification using those data sources. \r\nA failure to provide an element from the string collection will lead to a <a class=\"link-to-api\" href=\"#errors\">1005</a> service error."
       operationId: GetConsents
       parameters:
+        - $ref: '#/components/parameters/mode'
         - $ref: '#/components/parameters/configurationName'
         - name: countryCode
           in: path
@@ -1391,13 +1409,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /configuration/v1/detailedConsents/{configurationName}/{countryCode}:
+  /{mode}/configuration/v1/detailedConsents/{configurationName}/{countryCode}:
     get:
       tags:
         - Configuration
       summary: "This method retrieves details about consents required for data sources currently configured in your account configuration. \r\nThe response for this method contains a collection of objects.\r\nEach object contains the Name of the data source, Text outlining what the user is consenting to, and optionally a Url where the user can find more information about how their data will be used.  \r\nFailure to provide a Name from the object collection will lead to a <a class=\"link-to-api\" href=\"#errors\">1005</a> service error."
       operationId: GetDetailedConsents
       parameters:
+        - $ref: '#/components/parameters/mode'
         - $ref: '#/components/parameters/configurationName'
         - name: countryCode
           in: path
@@ -1451,7 +1470,7 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /configuration/v1/countrycodes/{configurationName}:
+  /{mode}/configuration/v1/countrycodes/{configurationName}:
     get:
       tags:
         - Configuration
@@ -1505,14 +1524,16 @@ paths:
       security:
         - ApiKeyAuth: []
       parameters:
+        - $ref: '#/components/parameters/mode'
         - $ref: '#/components/parameters/configurationName'
-  /configuration/v1/fields/{configurationName}/{countryCode}:
+  /{mode}/configuration/v1/fields/{configurationName}/{countryCode}:
     get:
       tags:
         - Configuration
       summary: "Generates json schema for the API, the schema is dynamic based on the country and configuration you are using.\r\nhttp://json-schema.org/documentation.html"
       operationId: GetFields
       parameters:
+        - $ref: '#/components/parameters/mode'
         - $ref: '#/components/parameters/configurationName'
         - name: countryCode
           in: path
@@ -1734,13 +1755,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /configuration/v1/recommendedfields/{configurationName}/{countryCode}:
+  /{mode}/configuration/v1/recommendedfields/{configurationName}/{countryCode}:
     get:
       tags:
         - Configuration
       summary: "Generates json schema for the API, the schema is dynamic based on the recommendedFields country and account you are using.\r\nhttp://json-schema.org/documentation.html"
       operationId: GetRecommendedFields
       parameters:
+        - $ref: '#/components/parameters/mode'
         - $ref: '#/components/parameters/configurationName'
         - name: countryCode
           in: path
@@ -1962,13 +1984,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /configuration/v1/testentities/{configurationName}/{countryCode}:
+  /{mode}/configuration/v1/testentities/{configurationName}/{countryCode}:
     get:
       tags:
         - Configuration
       summary: Gets the test entities configured for your product and country.
       operationId: GetTestEntities
       parameters:
+        - $ref: '#/components/parameters/mode'
         - $ref: '#/components/parameters/configurationName'
         - name: countryCode
           in: path
@@ -2095,13 +2118,14 @@ paths:
           description: An error happened on the server without a specific message.
       security:
         - ApiKeyAuth: []
-  /configuration/v1/datasources/{configurationName}/{countryCode}:
+  /{mode}/configuration/v1/datasources/{configurationName}/{countryCode}:
     get:
       tags:
         - Configuration
       summary: Gets datasource groups configured for your product and country.
       operationId: GetDatasources
       parameters:
+        - $ref: '#/components/parameters/mode'
         - $ref: '#/components/parameters/configurationName'
         - name: countryCode
           in: path
@@ -2197,7 +2221,7 @@ paths:
       security:
         - ApiKeyAuth: []
 servers:
-  - url: ${TSCALE_PROXY_URL}
+  - url: https://gateway.trulioo.com
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -3266,4 +3290,12 @@ components:
       schema:
         type: string
         default: Identity Verification
+      required: true
+    mode:
+      in: path
+      name: mode
+      description: trial or live
+      schema:
+        type: string
+        default: trial
       required: true
